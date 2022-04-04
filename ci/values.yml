@@ -1,0 +1,7 @@
+#@data/values
+---
+git_uri: https://github.com/GaloyMoney/helm-concourse-resource
+git_branch: main
+docker_registry: us.gcr.io/galoy-org
+docker_registry_user: ((docker-creds.username))
+docker_registry_password: ((docker-creds.password))
