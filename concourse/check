@@ -20,6 +20,6 @@ fi
 
 helm repo add repository $repository
 
-version=$(helm search repo repository/$dep -o json | jq -r '[.[]][0] | .version')
+version=$(helm search repo repository/$dependency -o json | jq -r '[.[]][0] | .version')
 
 echo "[ ${version} ]" >&3
