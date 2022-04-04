@@ -5,12 +5,27 @@ set -e
 exec 3>&1 # make stdout available as fd 3 for the result
 exec 1>&2 # redirect all output to stderr for logging
 
+destination=$1
+
+if [ -z "$destination" ]; then
+  echo "usage: $0 <path/to/destination>" >&2
+  exit 1
+fi
+
 # for jq
 PATH=/usr/local/bin:$PATH
 
 payload="$(cat <&0)"
 
-version=$(jq -r '.version // ""' <<< $payload)
+version=$(jq -r '.version.ref // ""' <<< $payload)
+dependency=$(jq -r '.source.depedency // ""' <<< $payload)
+repository=$(jq -r '.source.repository // ""' <<< $payload)
+
+cd $destination
+
+echo $version > version
+echo $dependency > dependency
+echo $repository > repository
 
 if [ -n "${version}" ]; then
   jq -r '{ version: .version }' <<< $payload >&3
