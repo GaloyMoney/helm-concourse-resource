@@ -22,4 +22,6 @@ helm repo add repository $repository
 
 version=$(helm search repo repository/$dependency -o json | jq -r '[.[]][0] | .version')
 
-echo "[ ${version} ]" >&3
+echo "Version: $version"
+
+echo "[ {\"ref\": \"${version}\"} ]" >&3
